@@ -9603,11 +9603,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\devasangeetha.m_disp\\Desktop\\API\\DisprzTraining\\DisprzTraining.csproj",
+      "projectUniqueName": "c:\\Users\\devasangeetha.m_disp\\Desktop\\Project\\DisprzTraining\\DisprzTraining\\DisprzTraining.csproj",
       "projectName": "DisprzTraining",
-      "projectPath": "c:\\Users\\devasangeetha.m_disp\\Desktop\\API\\DisprzTraining\\DisprzTraining.csproj",
+      "projectPath": "c:\\Users\\devasangeetha.m_disp\\Desktop\\Project\\DisprzTraining\\DisprzTraining\\DisprzTraining.csproj",
       "packagesPath": "C:\\Users\\devasangeetha.m_disp\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\devasangeetha.m_disp\\Desktop\\API\\DisprzTraining\\obj\\",
+      "outputPath": "c:\\Users\\devasangeetha.m_disp\\Desktop\\Project\\DisprzTraining\\DisprzTraining\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\devasangeetha.m_disp\\AppData\\Roaming\\NuGet\\NuGet.Config"

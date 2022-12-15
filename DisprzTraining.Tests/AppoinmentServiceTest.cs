@@ -28,7 +28,7 @@ namespace DisprzTraining.Tests
             var result = await appoinment.GetAppointmentDetails() as OkObjectResult;
 
             // Assert
-            Assert.Equal(200 , result?.StatusCode);
+            Assert.Equal(200, result?.StatusCode);
         }
 
         [Fact]
@@ -55,7 +55,7 @@ namespace DisprzTraining.Tests
             var result = await appoinment.GetAppointmentByID(id) as OkObjectResult;
 
             // Assert
-            Assert.Equal(200 , result?.StatusCode);
+            Assert.Equal(200, result?.StatusCode);
         }
 
         [Fact]
@@ -75,12 +75,12 @@ namespace DisprzTraining.Tests
         [Fact]
         public async Task GetByID_Result_404_NotFound()
         {
-              //Act
+            //Act
             var id = new Guid("4d0097f2-fef5-48a3-81d9-44484e50e9ad");
             var resultStatus = await appoinment.GetAppointmentByID(id) as NotFoundResult;
 
             //Assert
-            Assert.Equal(404 , resultStatus?.StatusCode);
+            Assert.Equal(404, resultStatus?.StatusCode);
         }
 
         [Fact]
@@ -91,7 +91,7 @@ namespace DisprzTraining.Tests
             var test = Assert.IsType<BadRequestObjectResult>(resultStatus);
 
             //Assert
-            Assert.Equal(400 , test?.StatusCode);
+            Assert.Equal(400, test?.StatusCode);
         }
 
         ////GET BY EVENTNAME -TESTCASES
@@ -103,7 +103,7 @@ namespace DisprzTraining.Tests
             var result = await appoinment.GetAppointmentByEventName("1 on 1") as OkObjectResult;
 
             // Assert
-            Assert.Equal(200 , result?.StatusCode);
+            Assert.Equal(200, result?.StatusCode);
         }
 
         [Fact]
@@ -124,7 +124,7 @@ namespace DisprzTraining.Tests
             var resultStatus = await appoinment.GetAppointmentByEventName(eventName) as NotFoundResult;
 
             //Assert
-            Assert.Equal( 404 , resultStatus?.StatusCode);
+            Assert.Equal(404, resultStatus?.StatusCode);
             Assert.IsType<NotFoundResult>(resultStatus);
         }
 
@@ -133,7 +133,7 @@ namespace DisprzTraining.Tests
         {
             // Act
             var badResponse = await appoinment.GetAppointmentByEventName(string.Empty);
-            var test = Assert.IsType<BadRequestResult>(badResponse);
+            var test = Assert.IsType<BadRequestObjectResult>(badResponse);
             // Assert
             Assert.Equal(400, test?.StatusCode);
         }
@@ -188,7 +188,7 @@ namespace DisprzTraining.Tests
             var postResult = await appoinment.PostAppointmentDetails(meetingDetails) as CreatedResult;
 
             //ASSERT
-            Assert.Equal(201 , postResult?.StatusCode);
+            Assert.Equal(201, postResult?.StatusCode);
         }
 
         [Fact]
@@ -234,7 +234,7 @@ namespace DisprzTraining.Tests
 
             // Assert
             var resultSuccess = Assert.IsType<OkObjectResult>(result);
-            Assert.Equal(200 , resultSuccess?.StatusCode);
+            Assert.Equal(200, resultSuccess?.StatusCode);
         }
 
         [Fact]
@@ -248,6 +248,28 @@ namespace DisprzTraining.Tests
             Assert.Equal(400, badResponse?.StatusCode);
         }
 
+        [Fact]
+        public async Task Update_Result_Value_Check_Conflict_409()
+        {
+            //ARRANGE
+            var url = "https://api/appoinments/fghrfdbrgn";
+            var meetingDetails = new Appointment()
+            {
+                ID = new Guid("d780857c-2df6-4b12-b484-97b75db63215"),
+                Name = "Devasangeetha",
+                meetingUrl = url,
+                startTime = new DateTime(2022, 12, 12, 1, 15, 15, DateTimeKind.Utc),
+                endTime = new DateTime(2022, 12, 12, 1, 25, 20, DateTimeKind.Utc),
+                eventName = "Scrum call"
+            };
+
+            //ACT
+            var updateResult = await appoinment.UpdateStudentDetails(meetingDetails) as ConflictObjectResult;
+
+            //ASSERT
+            Assert.Equal(409, updateResult?.StatusCode);
+        }
+
         //// DELETE - TESTCASES
 
         [Fact]
@@ -258,8 +280,8 @@ namespace DisprzTraining.Tests
             var resultStatus = await appoinment.DeleteStudentDetails(id) as NotFoundResult;
 
             //Assert
-            Assert.Equal(404 , resultStatus?.StatusCode);
-            Assert.IsType<NotFoundResult>( resultStatus );
+            Assert.Equal(404, resultStatus?.StatusCode);
+            Assert.IsType<NotFoundResult>(resultStatus);
         }
 
         [Fact]
@@ -269,8 +291,8 @@ namespace DisprzTraining.Tests
             var resultStatus = await appoinment.DeleteStudentDetails(Guid.Empty) as NotFoundResult;
 
             //Assert
-            Assert.Equal( 404 , resultStatus?.StatusCode );
-            Assert.IsType<NotFoundResult>( resultStatus );
+            Assert.Equal(404, resultStatus?.StatusCode);
+            Assert.IsType<NotFoundResult>(resultStatus);
         }
 
         [Fact]

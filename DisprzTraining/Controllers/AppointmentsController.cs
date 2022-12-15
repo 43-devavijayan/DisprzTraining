@@ -37,7 +37,7 @@ namespace DisprzTraining.Controllers
             }
             catch (Exception)
             {
-                return NotFound();
+                return NotFound("Request not found");
             }
         }
 
@@ -57,7 +57,10 @@ namespace DisprzTraining.Controllers
                 return NotFound();
             }
            }
-           return BadRequest();
+           else{
+            string result = "Request cannot be null";
+            return BadRequest(result);
+           }
         }
 
         [HttpPost("Post")]
@@ -78,7 +81,7 @@ namespace DisprzTraining.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(e);
+                return BadRequest("Request cannot be null "+e);
             }
         }
 
@@ -87,6 +90,12 @@ namespace DisprzTraining.Controllers
         {
             try
             {
+                bool flag = true;
+                flag = _appoinmentBL.FlagAppoinment(data).Result;
+                if (flag.Equals(false))
+                {
+                    return Conflict(new { errorMessage = $"Already Meeting Assigned ", data });
+                }
                 var updateResult = await _appoinmentBL.UpdateStudent(data);
                 return Ok(updateResult);
             }

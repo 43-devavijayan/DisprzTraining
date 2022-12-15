@@ -10903,11 +10903,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\devasangeetha.m_disp\\Desktop\\DisprzTraining\\DisprzTraining.Tests\\DisprzTraining.Tests.csproj",
+      "projectUniqueName": "c:\\Users\\devasangeetha.m_disp\\Desktop\\Project\\DisprzTraining\\DisprzTraining.Tests\\DisprzTraining.Tests.csproj",
       "projectName": "DisprzTraining.Tests",
-      "projectPath": "c:\\Users\\devasangeetha.m_disp\\Desktop\\DisprzTraining\\DisprzTraining.Tests\\DisprzTraining.Tests.csproj",
+      "projectPath": "c:\\Users\\devasangeetha.m_disp\\Desktop\\Project\\DisprzTraining\\DisprzTraining.Tests\\DisprzTraining.Tests.csproj",
       "packagesPath": "C:\\Users\\devasangeetha.m_disp\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\devasangeetha.m_disp\\Desktop\\DisprzTraining\\DisprzTraining.Tests\\obj\\",
+      "outputPath": "c:\\Users\\devasangeetha.m_disp\\Desktop\\Project\\DisprzTraining\\DisprzTraining.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\devasangeetha.m_disp\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -10922,8 +10922,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "c:\\Users\\devasangeetha.m_disp\\Desktop\\DisprzTraining\\DisprzTraining\\DisprzTraining.csproj": {
-              "projectPath": "c:\\Users\\devasangeetha.m_disp\\Desktop\\DisprzTraining\\DisprzTraining\\DisprzTraining.csproj"
+            "c:\\Users\\devasangeetha.m_disp\\Desktop\\Project\\DisprzTraining\\DisprzTraining\\DisprzTraining.csproj": {
+              "projectPath": "c:\\Users\\devasangeetha.m_disp\\Desktop\\Project\\DisprzTraining\\DisprzTraining\\DisprzTraining.csproj"
             }
           }
         }
