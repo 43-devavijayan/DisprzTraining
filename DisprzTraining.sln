@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DisprzTraining", "DisprzTra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DisprzTraining.Tests", "DisprzTraining.Tests\DisprzTraining.Tests.csproj", "{B029440F-2190-45EC-BA6B-61E174FFABF5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppoinmentUnitTest", "AppoinmentUnitTest\AppoinmentUnitTest.csproj", "{E63BBEDB-8391-454F-B46E-F017356C5663}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{B029440F-2190-45EC-BA6B-61E174FFABF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B029440F-2190-45EC-BA6B-61E174FFABF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B029440F-2190-45EC-BA6B-61E174FFABF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E63BBEDB-8391-454F-B46E-F017356C5663}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E63BBEDB-8391-454F-B46E-F017356C5663}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E63BBEDB-8391-454F-B46E-F017356C5663}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E63BBEDB-8391-454F-B46E-F017356C5663}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
