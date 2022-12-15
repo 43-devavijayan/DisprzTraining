@@ -40,7 +40,6 @@ namespace DisprzTraining.Business
         public async Task<bool> FlagAppoinment(Appointment data)
         {
             var meetingDetails = await _appoinmentDAL.GetAllAppointments();
-            // Task<List<Appointment>> meetingDetails =  _helloWorldDAL.GetAllAppointments();
             Boolean flag = true;
             foreach (var details in meetingDetails)
             {
