@@ -37,13 +37,15 @@ namespace DisprzTraining.Business
             return (resultByName);
         }
 
-        public async Task<bool> FlagAppoinment(Appointment data)
+         public async Task<bool> FlagAppoinment(Appointment data)
         {
             var meetingDetails = await _appoinmentDAL.GetAllAppointments();
             Boolean flag = true;
             foreach (var details in meetingDetails)
             {
-                if ((data.startTime >= details.startTime) && (data.startTime <= details.endTime))
+               if(data.ID != details.ID)
+               {
+                 if ((data.startTime >= details.startTime) && (data.startTime <= details.endTime))
                 {
                     flag = false;
                 }
@@ -55,6 +57,7 @@ namespace DisprzTraining.Business
                 {
                     flag = false;
                 }
+               }
             }
             return flag;
         }
