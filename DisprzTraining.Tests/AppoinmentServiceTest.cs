@@ -247,7 +247,27 @@ namespace DisprzTraining.Tests
             // Assert.IsType<BadRequestObjectResult>(badResponse);
             Assert.Equal(400, badResponse?.StatusCode);
         }
+         [Fact]
+        public async Task Update_Result_Value_Check_Conflict_409()
+        {
+            //ARRANGE
+            var url = "https://api/appoinments/fghrfdbrgn";
+            var meetingDetails = new Appointment()
+            {
+                ID = new Guid("d780857c-2df6-4b12-b484-97b75db63215"),
+                Name = "Devasangeetha",
+                meetingUrl = url,
+                startTime = new DateTime(2022, 12, 12, 1, 15, 15, DateTimeKind.Utc),
+                endTime = new DateTime(2022, 12, 12, 1, 25, 20, DateTimeKind.Utc),
+                eventName = "Scrum call"
+            };
 
+            //ACT
+            var updateResult = await appoinment.UpdateStudentDetails(meetingDetails) as ConflictObjectResult;
+
+            //ASSERT
+            Assert.Equal(409, updateResult?.StatusCode);
+        }
         //// DELETE - TESTCASES
 
         [Fact]
