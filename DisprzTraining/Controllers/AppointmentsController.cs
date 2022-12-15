@@ -82,11 +82,17 @@ namespace DisprzTraining.Controllers
             }
         }
 
-        [HttpPut("ID")]
+       [HttpPut("ID")]
         public async Task<IActionResult> UpdateStudentDetails(Appointment data)
         {
             try
             {
+                bool flag = true;
+                flag = _appoinmentBL.FlagAppoinment(data).Result;
+                if (flag.Equals(false))
+                {
+                    return Conflict(new { errorMessage = $"Already Meeting Assigned ", data });
+                }
                 var updateResult = await _appoinmentBL.UpdateStudent(data);
                 return Ok(updateResult);
             }
