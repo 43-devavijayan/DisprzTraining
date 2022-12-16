@@ -37,7 +37,7 @@ namespace DisprzTraining.Business
             return (resultByName);
         }
 
-        public async Task<bool> FlagAppoinment(Appointment data)
+         public async Task<bool> FlagAppoinment(Appointment data)
         {
             var meetingDetails = await _appoinmentDAL.GetAllAppointments();
             Boolean flag = true;

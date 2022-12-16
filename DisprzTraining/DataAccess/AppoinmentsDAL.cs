@@ -4,6 +4,7 @@ namespace DisprzTraining.DataAccess
 {
     public class AppoinmentDAL : IAppoinmentDAL
     {
+    ////GENERATE URL FOR MEETING.
         private static List<int> numbers = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
         private static List<char> characters = new List<char>()
          {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',

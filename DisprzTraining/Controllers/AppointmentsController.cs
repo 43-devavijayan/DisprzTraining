@@ -85,7 +85,7 @@ namespace DisprzTraining.Controllers
             }
         }
 
-        [HttpPut("ID")]
+       [HttpPut("ID")]
         public async Task<IActionResult> UpdateStudentDetails(Appointment data)
         {
             try

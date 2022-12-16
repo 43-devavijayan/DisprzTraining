@@ -94,10 +94,18 @@ namespace DisprzTraining.Tests
             Assert.Equal(400, test?.StatusCode);
         }
 
+         [Fact]
+        public void GetByID_Businesslayer_NUllException()
+        {
+            // Act + ASSERT
+            var result = Assert.ThrowsAsync<InvalidOperationException>(() => appoinmentBL.GetAppointmentByID(Guid.Empty));
+
+        }
+
         ////GET BY EVENTNAME -TESTCASES
 
         [Fact]
-        public async Task GetByName_Returns_200_Success()
+        public async Task GetByEventName_Returns_200_Success()
         {
             // Act
             var result = await appoinment.GetAppointmentByEventName("1 on 1") as OkObjectResult;
@@ -118,7 +126,7 @@ namespace DisprzTraining.Tests
         }
 
         [Fact]
-        public async Task GetByName_Result_404_NotFound()
+        public async Task GetByEventName_Result_404_NotFound()
         {
             var eventName = "DailyScrum";
             var resultStatus = await appoinment.GetAppointmentByEventName(eventName) as NotFoundResult;
@@ -129,7 +137,7 @@ namespace DisprzTraining.Tests
         }
 
         [Fact]
-        public async Task GetByName_Null_Result_BadRequest()
+        public async Task GetByEventName_Null_Result_BadRequest()
         {
             // Act
             var badResponse = await appoinment.GetAppointmentByEventName(string.Empty);
@@ -138,6 +146,13 @@ namespace DisprzTraining.Tests
             Assert.Equal(400, test?.StatusCode);
         }
 
+        [Fact]
+        public void GetByEventName_Businesslayer_NUllException()
+        {
+            // Act + ASSERT
+            var result = Assert.ThrowsAsync<NullReferenceException>(() => appoinmentBL.GetAppointmentByEventName(string.Empty));
+
+        }
 
         ///// POST APPOINMENT - TESTCASES
 
@@ -213,6 +228,14 @@ namespace DisprzTraining.Tests
             Assert.Equal(409, postResult?.StatusCode);
         }
 
+        [Fact]
+        public void Post_NullValue_Returns_NullException()
+        {
+            // Act + ASSERT
+            var result = Assert.ThrowsAsync<NullReferenceException>(() => appoinmentBL.CreateAppoinment(null));
+
+        }
+
         //// PUT - TESTCASES
 
         [Fact]
@@ -262,7 +285,6 @@ namespace DisprzTraining.Tests
                 endTime = new DateTime(2022, 12, 12, 1, 25, 20, DateTimeKind.Utc),
                 eventName = "Scrum call"
             };
-
             //ACT
             var updateResult = await appoinment.UpdateStudentDetails(meetingDetails) as ConflictObjectResult;
 
@@ -270,10 +292,18 @@ namespace DisprzTraining.Tests
             Assert.Equal(409, updateResult?.StatusCode);
         }
 
+        [Fact]
+        public void Update_Null_BLReturns_NullException()
+        {
+            // Act + ASSERT
+            var result = Assert.ThrowsAsync<NullReferenceException>(() => appoinmentBL.UpdateStudent(null));
+
+        }
+
         //// DELETE - TESTCASES
 
         [Fact]
-        public async Task DeleteByID_WrongID_Result_404_NotFound()
+        public async Task DeleteBy_ID_WrongID_Result_404_NotFound()
         {
             //Act
             var id = new Guid("4d0097f2-fef5-48a3-81d9-44484e50e9ad");
@@ -285,7 +315,7 @@ namespace DisprzTraining.Tests
         }
 
         [Fact]
-        public async Task DeleteByID_Null_Result_BadRequest()
+        public async Task DeleteBy_ID_Null_Result_BadRequest()
         {
             //Act
             var resultStatus = await appoinment.DeleteStudentDetails(Guid.Empty);
@@ -319,10 +349,10 @@ namespace DisprzTraining.Tests
         }
 
         [Fact]
-        public void  DeleteBy_ID_Businesslayer_NUllException()
+        public void DeleteBy_ID_Null_BLReturns_NUllException()
         {
-               // Act + ASSERT
-           var result = Assert.ThrowsAsync<InvalidOperationException>(() =>  appoinmentBL.DeleteStudent(Guid.Empty));          
+            // Act + ASSERT
+            var result = Assert.ThrowsAsync<InvalidOperationException>(() => appoinmentBL.DeleteStudent(Guid.Empty));
 
         }
     }
