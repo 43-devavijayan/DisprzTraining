@@ -61,23 +61,23 @@ namespace DisprzTraining.Business
             }
             return flag;
         }
-        public async Task<Appointment> CreateAppoinment(Appointment Data)
+        public async Task<Appointment> CreateAppoinment(Appointment data)
         {
-            var meetingDetails = await _appoinmentDAL.Postappointment(Data);
-            if (meetingDetails == null)
+            if (data == null)
             {
                 throw new NullReferenceException();
             }
+            var meetingDetails = await _appoinmentDAL.Postappointment(data);
             return meetingDetails;
         }
 
         public async Task<Appointment> UpdateStudent(Appointment data)
         {
-            var updatedResult = await _appoinmentDAL.UpdateAppoinmentDetail(data);
-            if (updatedResult == null)
+            if (data == null)
             {
                 throw new NullReferenceException();
             }
+            var updatedResult = await _appoinmentDAL.UpdateAppoinmentDetail(data);
             return updatedResult;
         }
 
@@ -86,7 +86,7 @@ namespace DisprzTraining.Business
             var deletedResult = await _appoinmentDAL.DeleteStudentData(id);
             if (deletedResult == null)
             {
-                throw new InvalidOperationException("Object reference not set to an instance of an object");
+                throw new InvalidOperationException();
             }
             return deletedResult;
         }

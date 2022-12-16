@@ -73,15 +73,15 @@ namespace DisprzTraining.Controllers
                 flag = _appoinmentBL.FlagAppoinment(data).Result;
                 if (flag.Equals(false))
                 {
-                    return Conflict(new { errorMessage = $"ALready Meeting Assigned ", data });
+                    return Conflict(new { errorMessage = $"Already Meeting Assigned ", data });
                 }
 
                 var meeting = await _appoinmentBL.CreateAppoinment(data);
                 return Created("api/appoinments/post", meeting);
             }
-            catch (Exception e)
+            catch (Exception )
             {
-                return BadRequest("Request cannot be null "+e);
+                return BadRequest("Request cannot be null ");
             }
         }
 
@@ -99,7 +99,7 @@ namespace DisprzTraining.Controllers
                 var updateResult = await _appoinmentBL.UpdateStudent(data);
                 return Ok(updateResult);
             }
-            catch (Exception e)
+            catch ( Exception )
             {
                 return BadRequest("A non-empty request body is required.");
             }

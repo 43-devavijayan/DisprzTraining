@@ -97,8 +97,9 @@ namespace DisprzTraining.Tests
          [Fact]
         public void GetByID_Businesslayer_NUllException()
         {
+            var id = new Guid("4d0097f2-fef5-48a3-81d9-44484e50e9ad");
             // Act + ASSERT
-            var result = Assert.ThrowsAsync<InvalidOperationException>(() => appoinmentBL.GetAppointmentByID(Guid.Empty));
+            var result = Assert.ThrowsAsync<InvalidOperationException>(() => appoinmentBL.GetAppointmentByID(id));
 
         }
 
@@ -149,8 +150,9 @@ namespace DisprzTraining.Tests
         [Fact]
         public void GetByEventName_Businesslayer_NUllException()
         {
+            var eventName = "DailyScrum";
             // Act + ASSERT
-            var result = Assert.ThrowsAsync<NullReferenceException>(() => appoinmentBL.GetAppointmentByEventName(string.Empty));
+            var result = Assert.ThrowsAsync<NullReferenceException>(() => appoinmentBL.GetAppointmentByEventName(eventName));
 
         }
 
@@ -351,8 +353,9 @@ namespace DisprzTraining.Tests
         [Fact]
         public void DeleteBy_ID_Null_BLReturns_NUllException()
         {
+            var id = new Guid("4d0097f2-fef5-48a3-81d9-44484e50e9ad");
             // Act + ASSERT
-            var result = Assert.ThrowsAsync<InvalidOperationException>(() => appoinmentBL.DeleteStudent(Guid.Empty));
+            var result = Assert.ThrowsAsync<InvalidOperationException>(() => appoinmentBL.DeleteStudent(id));
 
         }
     }
