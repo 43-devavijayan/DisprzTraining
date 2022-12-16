@@ -86,7 +86,7 @@ namespace DisprzTraining.Business
             var deletedResult = await _appoinmentDAL.DeleteStudentData(id);
             if (deletedResult == null)
             {
-                throw new NullReferenceException();
+                throw new InvalidOperationException("Object reference not set to an instance of an object");
             }
             return deletedResult;
         }

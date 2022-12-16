@@ -285,14 +285,14 @@ namespace DisprzTraining.Tests
         }
 
         [Fact]
-        public async Task DeleteByID_Null_Result_404_NotFound()
+        public async Task DeleteByID_Null_Result_BadRequest()
         {
             //Act
-            var resultStatus = await appoinment.DeleteStudentDetails(Guid.Empty) as NotFoundResult;
+            var resultStatus = await appoinment.DeleteStudentDetails(Guid.Empty);
 
             //Assert
-            Assert.Equal(404, resultStatus?.StatusCode);
-            Assert.IsType<NotFoundResult>(resultStatus);
+            var resultBadRequest = Assert.IsType<BadRequestObjectResult>(resultStatus);
+            Assert.Equal(400, resultBadRequest?.StatusCode);
         }
 
         [Fact]
@@ -306,7 +306,7 @@ namespace DisprzTraining.Tests
         }
 
         [Fact]
-        public async Task Appoinment_DeleteBY_ID_ExistingGuidPassed_GetAllItemCount()
+        public async Task DeleteBY_ID_ExistingGuidPassed_GetAllItemCount()
         {
             var existingGuid = new Guid("766fdce0-7e9c-4c43-b068-02fd99c008d5");
             // Act
@@ -316,6 +316,14 @@ namespace DisprzTraining.Tests
             // Assert
             var items = Assert.IsType<List<Appointment>>(noContentResponse.Value);
             Assert.Equal(3, items.Count);
+        }
+
+        [Fact]
+        public void  DeleteBy_ID_Businesslayer_NUllException()
+        {
+               // Act + ASSERT
+           var result = Assert.ThrowsAsync<InvalidOperationException>(() =>  appoinmentBL.DeleteStudent(Guid.Empty));          
+
         }
     }
 }

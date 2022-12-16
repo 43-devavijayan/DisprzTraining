@@ -37,7 +37,7 @@ namespace DisprzTraining.Controllers
             }
             catch (Exception)
             {
-                return NotFound("Request not found");
+                return NotFound();
             }
         }
 
@@ -99,7 +99,7 @@ namespace DisprzTraining.Controllers
                 var updateResult = await _appoinmentBL.UpdateStudent(data);
                 return Ok(updateResult);
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return BadRequest("A non-empty request body is required.");
             }
@@ -108,16 +108,21 @@ namespace DisprzTraining.Controllers
         [HttpDelete("ID")]
         public async Task<IActionResult> DeleteStudentDetails(Guid id)
         {
-            try
+            if(!(id == Guid.Empty))
+            {
+                try
             {
                 var excistingAppointment = _appoinmentBL.GetAppointmentByID(id);
                 await _appoinmentBL.DeleteStudent(id);
                 return NoContent();
             }
-            catch (Exception)
-            {
+            catch (Exception e)
+            {                
+                System.Console.WriteLine(e);
                 return NotFound();
             }
+            }
+            return BadRequest("Request cannot be null");
 
         }
     }
