@@ -36,7 +36,7 @@ namespace DisprzTraining.DataAccess
         public static List<Appointment> appointmentDetails = new(){
             
             new Appointment{ ID = new Guid("d780857c-2df6-4b12-b484-97b75db63215"), Name = "Devasangeetha", meetingUrl = GetURL(), startTime = new DateTime(2022, 12, 31, 5, 10, 20, DateTimeKind.Utc), endTime = new DateTime(2022, 12, 31, 5, 20, 00, DateTimeKind.Utc), eventName ="Scrumcall"},
-            new Appointment{ ID = new Guid("766fdce0-7e9c-4c43-b068-02fd99c008d5"), Name = "NiravDoshi", meetingUrl = GetURL(), startTime = new DateTime(2022, 12, 31, 1, 30, 00, DateTimeKind.Utc), endTime = new DateTime(2022, 12, 31, 2, 00, 00, DateTimeKind.Utc), eventName ="Scrumcall"},
+            new Appointment{ ID = new Guid("766fdce0-7e9c-4c43-b068-02fd99c008d5"), Name = "Kanishka", meetingUrl = GetURL(), startTime = new DateTime(2022, 12, 31, 1, 30, 00, DateTimeKind.Utc), endTime = new DateTime(2022, 12, 31, 2, 00, 00, DateTimeKind.Utc), eventName ="Scrumcall"},
             new Appointment{ ID = new Guid("ed46a787-9522-47cb-897a-96714b4c877e"), Name = "VijayShree", meetingUrl = GetURL(), startTime = new DateTime(2022, 12, 12, 1, 15, 15, DateTimeKind.Utc), endTime = new DateTime(2022, 12, 12, 1, 25, 20, DateTimeKind.Utc), eventName ="Town Hall"},
             new Appointment{ ID = new Guid("3b5ec916-eb18-41a3-9a21-4524f0fcf521"), Name = "Pavatharini", meetingUrl = GetURL(), startTime = new DateTime(2022, 12, 5, 1, 0, 30, DateTimeKind.Utc), endTime = new DateTime(2022, 12, 12, 1, 10, 10, DateTimeKind.Utc), eventName ="1 on 1"},
         };

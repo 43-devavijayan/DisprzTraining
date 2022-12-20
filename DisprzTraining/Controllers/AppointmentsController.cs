@@ -33,7 +33,7 @@ namespace DisprzTraining.Controllers
             try
             {
                 var existingAppointment = await _appoinmentBL.GetAppointmentByID(id);
-                return Ok( existingAppointment );
+                return Ok(existingAppointment);
             }
             catch (Exception)
             {
@@ -45,22 +45,22 @@ namespace DisprzTraining.Controllers
         [ProducesResponseType(typeof(Appointment), 200)]
         public async Task<IActionResult> GetAppointmentByEventName(string eventName)
         {
-           if(!(eventName.Equals(string.Empty)))
-           {
-             try
+            if (!(eventName.Equals(string.Empty)))
             {
-                var existingAppointment = await _appoinmentBL.GetAppointmentByEventName(eventName);
-                return Ok(existingAppointment);
+                try
+                {
+                    var existingAppointment = await _appoinmentBL.GetAppointmentByEventName(eventName);
+                    return Ok(existingAppointment);
+                }
+                catch (Exception)
+                {
+                    return NotFound();
+                }
             }
-            catch (Exception)
+            else
             {
-                return NotFound();
+                return BadRequest("Request cannot be null");
             }
-           }
-           else{
-            string result = "Request cannot be null";
-            return BadRequest(result);
-           }
         }
 
         [HttpPost("Post")]
@@ -73,19 +73,19 @@ namespace DisprzTraining.Controllers
                 flag = _appoinmentBL.FlagAppoinment(data).Result;
                 if (flag.Equals(false))
                 {
-                    return Conflict(new { errorMessage = $"Already Meeting Assigned ", data });
+                    return Conflict(false);
                 }
 
                 var meeting = await _appoinmentBL.CreateAppoinment(data);
-                return Created("api/appoinments/post", meeting);
+                return Created("api/appoinments/Post", true);
             }
-            catch (Exception )
+            catch (Exception)
             {
                 return BadRequest("Request cannot be null ");
             }
         }
 
-       [HttpPut("ID")]
+        [HttpPut("ID")]
         public async Task<IActionResult> UpdateStudentDetails(Appointment data)
         {
             try
@@ -94,12 +94,12 @@ namespace DisprzTraining.Controllers
                 flag = _appoinmentBL.FlagAppoinment(data).Result;
                 if (flag.Equals(false))
                 {
-                    return Conflict(new { errorMessage = $"Already Meeting Assigned ", data });
+                    return Conflict(false);
                 }
                 var updateResult = await _appoinmentBL.UpdateStudent(data);
                 return Ok(updateResult);
             }
-            catch ( Exception )
+            catch (Exception)
             {
                 return BadRequest("A non-empty request body is required.");
             }
@@ -108,22 +108,21 @@ namespace DisprzTraining.Controllers
         [HttpDelete("ID")]
         public async Task<IActionResult> DeleteStudentDetails(Guid id)
         {
-            if(!(id == Guid.Empty))
+            if (!(id == Guid.Empty))
             {
                 try
-            {
-                var excistingAppointment = _appoinmentBL.GetAppointmentByID(id);
-                await _appoinmentBL.DeleteStudent(id);
-                return NoContent();
-            }
-            catch (Exception e)
-            {                
-                System.Console.WriteLine(e);
-                return NotFound();
-            }
+                {
+                    var excistingAppointment = _appoinmentBL.GetAppointmentByID(id);
+                    await _appoinmentBL.DeleteStudent(id);
+                    return NoContent();
+                }
+                catch (Exception e)
+                {
+                    System.Console.WriteLine(e);
+                    return NotFound();
+                }
             }
             return BadRequest("Request cannot be null");
-
         }
     }
 }

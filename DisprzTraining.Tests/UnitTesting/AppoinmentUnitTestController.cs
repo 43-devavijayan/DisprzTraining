@@ -1,18 +1,14 @@
-﻿using DisprzTraining.Business;
+using System;
+using DisprzTraining.Business;
 using DisprzTraining.Controllers;
 using DisprzTraining.DataAccess;
 using DisprzTraining.Models;
 using Microsoft.AspNetCore.Mvc;
-using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Xunit;
 
-namespace DisprzTraining.Tests
+namespace DisprzTraining.Tests.UnitTesting
 {
-    public class AppoinmentServiceTest
+    public class UnitTestController
     {
         static IAppoinmentDAL appoinmentDAL = new AppoinmentDAL();
         static IAppoinmentBL appoinmentBL = new AppointmentBL(appoinmentDAL);
@@ -41,7 +37,6 @@ namespace DisprzTraining.Tests
             var items = Assert.IsType<List<Appointment>>(okResult.Value);
             Assert.Equal(4, items.Count);
         }
-
 
         /////GET BY ID - TESTCASES
 
@@ -94,15 +89,6 @@ namespace DisprzTraining.Tests
             Assert.Equal(400, test?.StatusCode);
         }
 
-         [Fact]
-        public void GetByID_Businesslayer_NUllException()
-        {
-            var id = new Guid("4d0097f2-fef5-48a3-81d9-44484e50e9ad");
-            // Act + ASSERT
-            var result = Assert.ThrowsAsync<InvalidOperationException>(() => appoinmentBL.GetAppointmentByID(id));
-
-        }
-
         ////GET BY EVENTNAME -TESTCASES
 
         [Fact]
@@ -147,14 +133,7 @@ namespace DisprzTraining.Tests
             Assert.Equal(400, test?.StatusCode);
         }
 
-        [Fact]
-        public void GetByEventName_Businesslayer_NUllException()
-        {
-            var eventName = "DailyScrum";
-            // Act + ASSERT
-            var result = Assert.ThrowsAsync<NullReferenceException>(() => appoinmentBL.GetAppointmentByEventName(eventName));
 
-        }
 
         ///// POST APPOINMENT - TESTCASES
 
@@ -168,12 +147,11 @@ namespace DisprzTraining.Tests
                 Name = "Devasangeetha",
                 meetingUrl = url,
                 startTime = new DateTime(2022, 12, 31, 8, 10, 20, DateTimeKind.Utc),
-                endTime = new DateTime(2022, 12, 31, 9, 00, 00, DateTimeKind.Utc)
+                endTime = new DateTime(2022, 12, 31, 9, 00, 00, DateTimeKind.Utc),
+                eventName = "Scrum call"
             };
             var postResult = await appoinment.PostAppointmentDetails(meetingDetails) as CreatedResult;
-            var data = postResult.Value as Appointment;
-            Assert.IsType<Appointment>(data);
-            Assert.Equal(meetingDetails.Name, data.Name);
+            Assert.True(postResult.Value.Equals(true));
         }
 
         [Fact]
@@ -198,7 +176,8 @@ namespace DisprzTraining.Tests
                 Name = "Devasangeetha",
                 meetingUrl = url,
                 startTime = new DateTime(2022, 12, 31, 6, 30, 20, DateTimeKind.Utc),
-                endTime = new DateTime(2022, 12, 31, 7, 00, 00, DateTimeKind.Utc)
+                endTime = new DateTime(2022, 12, 31, 7, 00, 00, DateTimeKind.Utc),
+                eventName = "Scrum call"
             };
 
             //ACT
@@ -230,13 +209,6 @@ namespace DisprzTraining.Tests
             Assert.Equal(409, postResult?.StatusCode);
         }
 
-        [Fact]
-        public void Post_NullValue_Returns_NullException()
-        {
-            // Act + ASSERT
-            var result = Assert.ThrowsAsync<NullReferenceException>(() => appoinmentBL.CreateAppoinment(null));
-
-        }
 
         //// PUT - TESTCASES
 
@@ -251,7 +223,8 @@ namespace DisprzTraining.Tests
                 Name = "Devasangeetha",
                 meetingUrl = url,
                 startTime = new DateTime(2022, 12, 31, 5, 10, 20, DateTimeKind.Utc),
-                endTime = new DateTime(2022, 12, 31, 6, 00, 00, DateTimeKind.Utc)
+                endTime = new DateTime(2022, 12, 31, 6, 00, 00, DateTimeKind.Utc),
+                eventName = "Updates"
             };
 
             // Act
@@ -292,14 +265,6 @@ namespace DisprzTraining.Tests
 
             //ASSERT
             Assert.Equal(409, updateResult?.StatusCode);
-        }
-
-        [Fact]
-        public void Update_Null_BLReturns_NullException()
-        {
-            // Act + ASSERT
-            var result = Assert.ThrowsAsync<NullReferenceException>(() => appoinmentBL.UpdateStudent(null));
-
         }
 
         //// DELETE - TESTCASES
@@ -344,20 +309,9 @@ namespace DisprzTraining.Tests
             // Act
             var okResult = await appoinment.DeleteStudentDetails(existingGuid);
             var noContentResponse = await appoinment.GetAppointmentDetails() as OkObjectResult;
-
             // Assert
             var items = Assert.IsType<List<Appointment>>(noContentResponse.Value);
             Assert.Equal(3, items.Count);
         }
-
-        [Fact]
-        public void DeleteBy_ID_Null_BLReturns_NUllException()
-        {
-            var id = new Guid("4d0097f2-fef5-48a3-81d9-44484e50e9ad");
-            // Act + ASSERT
-            var result = Assert.ThrowsAsync<InvalidOperationException>(() => appoinmentBL.DeleteStudent(id));
-
-        }
     }
 }
-
