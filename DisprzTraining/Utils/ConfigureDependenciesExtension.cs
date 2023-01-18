@@ -11,9 +11,9 @@ namespace DisprzTraining.Utils
         public static void ConfigureDependencyInjections(this IServiceCollection services)
         {
             services.AddHttpContextAccessor();
-
             services.AddScoped<IAppoinmentBL, AppointmentBL>();
             services.AddScoped<IAppoinmentDAL, AppoinmentDAL>();
+            services.AddCors();
         }
     }
 }

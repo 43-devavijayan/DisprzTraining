@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json;
 using DisprzTraining.Business;
 using DisprzTraining.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -17,51 +18,57 @@ namespace DisprzTraining.Controllers
 
         [HttpGet("")]
         [ProducesResponseType(typeof(Appointment), 200)]
-        public async Task<IActionResult> GetAppointmentDetails()
+        public async Task<IActionResult> GetAppointmentDetails(DateTime? startTime, DateTime? endTime, string title="")
         {
-            return Ok(await _appoinmentBL.GetAppointments());
-        }
-
-        [HttpGet("ID")]
-        [ProducesResponseType(typeof(Appointment), 200)]
-        public async Task<IActionResult> GetAppointmentByID(Guid id)
-        {
-            if (id == Guid.Empty)
-            {
-                return BadRequest(" Request cannot be null ");
+            try{
+                return Ok(await _appoinmentBL.GetAppointments(startTime,endTime,title));
             }
-            try
-            {
-                var existingAppointment = await _appoinmentBL.GetAppointmentByID(id);
-                return Ok(existingAppointment);
-            }
-            catch (Exception)
+            catch(Exception)
             {
                 return NotFound();
             }
         }
 
-        [HttpGet("Event")]
-        [ProducesResponseType(typeof(Appointment), 200)]
-        public async Task<IActionResult> GetAppointmentByEventName(string eventName)
-        {
-            if (!(eventName.Equals(string.Empty)))
-            {
-                try
-                {
-                    var existingAppointment = await _appoinmentBL.GetAppointmentByEventName(eventName);
-                    return Ok(existingAppointment);
-                }
-                catch (Exception)
-                {
-                    return NotFound();
-                }
-            }
-            else
-            {
-                return BadRequest("Request cannot be null");
-            }
-        }
+        // [HttpGet("{ID}")]
+        // [ProducesResponseType(typeof(Appointment), 200)]
+        // public async Task<IActionResult> GetAppointmentByID(Guid id)
+        // {
+        //     if (id == Guid.Empty)
+        //     {
+        //         return BadRequest(" Request cannot be null ");
+        //     }
+        //     try
+        //     {
+        //         var existingAppointment = await _appoinmentBL.GetAppointmentByID(id);
+        //         return Ok(existingAppointment);
+        //     }
+        //     catch (Exception)
+        //     {
+        //         return NotFound();
+        //     }
+        // }
+
+        // [HttpGet("Event")]
+        // [ProducesResponseType(typeof(Appointment), 200)]
+        // public async Task<IActionResult> GetAppointmentByEventName(string eventName)
+        // {
+        //     if (!(eventName.Equals(string.Empty)))
+        //     {
+        //         try
+        //         {
+        //             var existingAppointment = await _appoinmentBL.GetAppointmentByEventName(eventName);
+        //             return Ok(existingAppointment);
+        //         }
+        //         catch (Exception)
+        //         {
+        //             return NotFound();
+        //         }
+        //     }
+        //     else
+        //     {
+        //         return BadRequest("Request cannot be null");
+        //     }
+        // }
 
         [HttpPost("Post")]
         [ProducesResponseType(typeof(Appointment), 201)]
@@ -112,7 +119,6 @@ namespace DisprzTraining.Controllers
             {
                 try
                 {
-                    var excistingAppointment = _appoinmentBL.GetAppointmentByID(id);
                     await _appoinmentBL.DeleteStudent(id);
                     return NoContent();
                 }

@@ -42,31 +42,64 @@ namespace DisprzTraining.Tests
 
         }
 
-        /////INTEGRATION TEST - GET BY ID      
-
         [Fact]
-        public async Task Integration_Testing_Get_Appoinment_ByID()
+        public async Task Integration_Testing_GetByStartTime()
         {
-            var response = await _client.GetAsync("http://localhost:5169/api/appoinment/ID?id=d780857c-2df6-4b12-b484-97b75db63215");
+            var response = await _client.GetAsync("http://localhost:5169/api/appoinment?startTime=2022-12-12T01%3A15%3A15Z");
 
             response.EnsureSuccessStatusCode();
 
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
         }
+
+        [Fact]
+        public async Task Integration_Testing_GetByEndTime()
+        {
+            var response = await _client.GetAsync("http://localhost:5169/api/appoinment?endTime=2022-12-12T01%3A55%3A20Z");
+
+            response.EnsureSuccessStatusCode();
+
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+        }
+
+        [Fact]
+        public async Task Integration_Testing_GetByTitle()
+        {
+            var response = await _client.GetAsync("http://localhost:5169/api/appoinment?title=Scrumcall");
+
+            response.EnsureSuccessStatusCode();
+
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+        }
+
+        /////INTEGRATION TEST - GET BY ID      
+
+        // [Fact]
+        // public async Task Integration_Testing_Get_Appoinment_ByID()
+        // {
+        //     var response = await _client.GetAsync("http://localhost:5169/api/appoinment/ID?id=d780857c-2df6-4b12-b484-97b75db63215");
+
+        //     response.EnsureSuccessStatusCode();
+
+        //     Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+        // }
 
         /////INTEGRATION TEST - GET BY EVENT NAME     
 
-        [Fact]
-        public async Task Integration_Testing_Get_Appoinment_ByEventName()
-        {
-            var response = await _client.GetAsync("http://localhost:5169/api/appoinment/Event?eventName=Scrumcall");
+        // [Fact]
+        // public async Task Integration_Testing_Get_Appoinment_ByEventName()
+        // {
+        //     var response = await _client.GetAsync("http://localhost:5169/api/appoinment/Event?eventName=Scrumcall");
 
-            response.EnsureSuccessStatusCode();
+        //     response.EnsureSuccessStatusCode();
 
-            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        //     Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
-        }
+        // }
 
         ////INTEGRATION TEST - POST 
 
@@ -75,13 +108,16 @@ namespace DisprzTraining.Tests
         {
             // Arrange
             var Url = "http://localhost:5169/api/appoinment/Post";
+            string format = "MMM ddd d HH:mm yyyy";
+            DateTime timestart1 = new DateTime(2023, 12, 31, 2, 10, 20, DateTimeKind.Utc);
+            DateTime timeend1 = new DateTime(2023, 12, 31, 2, 20, 00, DateTimeKind.Utc);
             var meetingDetails = new Appointment
             {
                 Name = "Kanishka",
                 meetingUrl = "https://api/appoinment/dfnbhgteyudbjn5",
-                startTime = new DateTime(2023, 12, 31, 2, 10, 20, DateTimeKind.Utc),
-                endTime = new DateTime(2023, 12, 31, 2, 20, 00, DateTimeKind.Utc),
-                eventName = "Integration Testing"
+                startTime = timestart1,
+                endTime = timeend1,
+                title = "Integration Testing"
             };
             var jsonString = JsonSerializer.Serialize(meetingDetails);
             var httpRequestMessage = new HttpRequestMessage
@@ -99,14 +135,17 @@ namespace DisprzTraining.Tests
         {
             // Arrange
             var Url = "http://localhost:5169/api/appoinment/ID";
+            // string format = "MMM ddd d HH:mm yyyy";
+            DateTime timestart1 = new DateTime(2023, 12, 31, 2, 10, 20, DateTimeKind.Utc);
+            DateTime timeend1 = new DateTime(2023, 12, 31, 2, 20, 00, DateTimeKind.Utc);
             var meetingDetails = new Appointment
             {
                 ID = new Guid("766fdce0-7e9c-4c43-b068-02fd99c008d5"),
                 Name = "Kanishka",
                 meetingUrl = "https://api/appoinment/dfnbhgteyudbjn5",
-                startTime = new DateTime(2023, 12, 31, 2, 10, 20, DateTimeKind.Utc),
-                endTime = new DateTime(2023, 12, 31, 2, 20, 00, DateTimeKind.Utc),
-                eventName = "Integration Testing"
+                startTime = timestart1,
+                endTime = timeend1,
+                title = "Integration Testing"
             };
             var jsonString = JsonSerializer.Serialize(meetingDetails);
             var httpRequestMessage = new HttpRequestMessage

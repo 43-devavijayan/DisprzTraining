@@ -21,7 +21,7 @@ namespace DisprzTraining.Tests.UnitTesting
         public async Task GetAllAppoinment_Returns_200_Success()
         {
             // Act
-            var result = await appoinment.GetAppointmentDetails() as OkObjectResult;
+            var result = await appoinment.GetAppointmentDetails(null, null, "") as OkObjectResult;
 
             // Assert
             Assert.Equal(200, result?.StatusCode);
@@ -31,107 +31,191 @@ namespace DisprzTraining.Tests.UnitTesting
         public async void GetAllAppoinment_WhenCalled_ReturnsAllItems()
         {
             // Act
-            var okResult = await appoinment.GetAppointmentDetails() as OkObjectResult;
+            var okResult = await appoinment.GetAppointmentDetails(null, null, "") as OkObjectResult;
 
             // Assert
             var items = Assert.IsType<List<Appointment>>(okResult.Value);
             Assert.Equal(4, items.Count);
         }
 
-        /////GET BY ID - TESTCASES
-
-        [Fact]
-        public async Task GetByID_Returns_200_Success()
-        {
-            //ARRANGE
-            var id = new Guid("d780857c-2df6-4b12-b484-97b75db63215");
-
-            // Act
-            var result = await appoinment.GetAppointmentByID(id) as OkObjectResult;
-
-            // Assert
-            Assert.Equal(200, result?.StatusCode);
-        }
-
-        [Fact]
-        public async void GetByID_WhenCalled_Return_Appoinment()
-        {
-            //ARRANGE 
-            var id = new Guid("d780857c-2df6-4b12-b484-97b75db63215");
-
-            // Act
-            var okResult = await appoinment.GetAppointmentByID(id) as OkObjectResult;
-            var items = okResult.Value as Appointment;
-
-            // Assert
-            Assert.True(items.Name.Equals("Devasangeetha"));
-        }
-
-        [Fact]
-        public async Task GetByID_Result_404_NotFound()
-        {
-            //Act
-            var id = new Guid("4d0097f2-fef5-48a3-81d9-44484e50e9ad");
-            var resultStatus = await appoinment.GetAppointmentByID(id) as NotFoundResult;
-
-            //Assert
-            Assert.Equal(404, resultStatus?.StatusCode);
-        }
-
-        [Fact]
-        public async Task GetByID_Null_Result_BadRequest()
-        {
-            //Act
-            var resultStatus = await appoinment.GetAppointmentByID(Guid.Empty);
-            var test = Assert.IsType<BadRequestObjectResult>(resultStatus);
-
-            //Assert
-            Assert.Equal(400, test?.StatusCode);
-        }
-
-        ////GET BY EVENTNAME -TESTCASES
+        /////GET BY TITLE, STARTTIME, ENDTIME - TESTCASES
 
         [Fact]
         public async Task GetByEventName_Returns_200_Success()
         {
+            //ARRANGE
+            var title = "Scrumcall";
+
             // Act
-            var result = await appoinment.GetAppointmentByEventName("1 on 1") as OkObjectResult;
+            var result = await appoinment.GetAppointmentDetails(null, null, title) as OkObjectResult;
 
             // Assert
             Assert.Equal(200, result?.StatusCode);
         }
 
         [Fact]
-        public async void GetByEventName_WhenCalled_Return_Appoinment()
+        public async Task GetByStartTime_Returns_200_Success()
         {
-            // Act
-            var okResult = await appoinment.GetAppointmentByEventName("Scrumcall") as OkObjectResult;
+            //ARRANGE
+            var startTime = new DateTime(2022, 12, 31, 5, 10, 20, DateTimeKind.Utc);
 
+            // Act
+            var result = await appoinment.GetAppointmentDetails(startTime, null, "") as OkObjectResult;
+            var item = result?.Value as Appointment;
+            // Assert
+            Assert.Equal(200, result?.StatusCode);
+        }
+
+        [Fact]
+        public async Task GetByEndTime_Returns_200_Success()
+        {
+            //ARRANGE
+            var endTime = new DateTime(2022, 12, 31, 5, 40, 0, DateTimeKind.Utc);
+
+            // Act
+            var result = await appoinment.GetAppointmentDetails(null, endTime, "") as OkObjectResult;
+            var item = result?.Value as Appointment;
+            // Assert
+            Assert.Equal(200, result?.StatusCode);
+        }
+
+        [Fact]
+        public async void GetBySearch_WhenCalled_Return_Appoinment()
+        {
+            //ARRANGE 
+            var startTime = new DateTime(2022, 12, 31, 5, 10, 20, DateTimeKind.Utc);
+            var endTime = new DateTime(2022, 12, 31, 5, 40, 0, DateTimeKind.Utc);
+            var title = "Scrumcall";
+
+            // Act
+            var okResult = await appoinment.GetAppointmentDetails(startTime, endTime, title) as OkObjectResult;
             var items = Assert.IsType<List<Appointment>>(okResult.Value);
+            var item = okResult.Value as Appointment;
+            System.Console.WriteLine(item);
+
             // Assert
-            Assert.True(items.Count == 2);
+            Assert.Equal(200, okResult?.StatusCode);
+            Assert.True(items.Count == 1);
         }
 
         [Fact]
-        public async Task GetByEventName_Result_404_NotFound()
+        public async void GetBySearch_Title_And_StartTime_WhenCalled_Return_Appoinment()
         {
-            var eventName = "DailyScrum";
-            var resultStatus = await appoinment.GetAppointmentByEventName(eventName) as NotFoundResult;
+            //ARRANGE 
+            var startTime = new DateTime(2022, 12, 31, 5, 10, 20, DateTimeKind.Utc);
+            var title = "Scrumcall";
 
-            //Assert
-            Assert.Equal(404, resultStatus?.StatusCode);
-            Assert.IsType<NotFoundResult>(resultStatus);
-        }
-
-        [Fact]
-        public async Task GetByEventName_Null_Result_BadRequest()
-        {
             // Act
-            var badResponse = await appoinment.GetAppointmentByEventName(string.Empty);
-            var test = Assert.IsType<BadRequestObjectResult>(badResponse);
+            var okResult = await appoinment.GetAppointmentDetails(startTime, null, title) as OkObjectResult;
+            var items = Assert.IsType<List<Appointment>>(okResult.Value);
+            var item = okResult.Value as Appointment;
+            System.Console.WriteLine(item);
+
             // Assert
-            Assert.Equal(400, test?.StatusCode);
+            Assert.Equal(200, okResult?.StatusCode);
+            Assert.True(items.Count == 1);
         }
+
+        [Fact]
+        public async void GetBySearch_Title_And_EndTime_WhenCalled_Return_Appoinment()
+        {
+            //ARRANGE 
+            var endTime = new DateTime(2022, 12, 31, 5, 40, 0, DateTimeKind.Utc);
+            var title = "Scrumcall";
+
+            // Act
+            var okResult = await appoinment.GetAppointmentDetails(null, endTime, title) as OkObjectResult;
+            var items = Assert.IsType<List<Appointment>>(okResult.Value);
+            var item = okResult.Value as Appointment;
+            System.Console.WriteLine(item);
+
+            // Assert
+            Assert.Equal(200, okResult?.StatusCode);
+            Assert.True(items.Count == 1);
+        }
+
+          [Fact]
+        public async void GetBySearch_StartTime_And_EndTime_TitleAndEndTime_WhenCalled_Return_Appoinment()
+        {
+            //ARRANGE 
+            var startTime = new DateTime(2022, 12, 31, 5, 10, 20, DateTimeKind.Utc);
+            var endTime = new DateTime(2022, 12, 31, 5, 40, 0, DateTimeKind.Utc);
+            // Act
+            var okResult = await appoinment.GetAppointmentDetails(null,endTime,"") as OkObjectResult;
+            var items = Assert.IsType<List<Appointment>>(okResult.Value);
+            var item = okResult.Value as Appointment;
+            System.Console.WriteLine(item);
+
+            // Assert
+            Assert.Equal(200, okResult?.StatusCode);
+            Assert.True(items.Count == 1);
+        }
+
+        // [Fact]
+        // public async Task GetByID_Result_404_NotFound()
+        // {
+        //     //Act
+        //     var id = new Guid("4d0097f2-fef5-48a3-81d9-44484e50e9ad");
+        //     var resultStatus = await appoinment.GetAppointmentByID(id) as NotFoundResult;
+
+        //     //Assert
+        //     Assert.Equal(404, resultStatus?.StatusCode);
+        // }
+
+        // [Fact]
+        // public async Task GetByID_Null_Result_BadRequest()
+        // {
+        //     //Act
+        //     var resultStatus = await appoinment.GetAppointmentByID(Guid.Empty);
+        //     var test = Assert.IsType<BadRequestObjectResult>(resultStatus);
+
+        //     //Assert
+        //     Assert.Equal(400, test?.StatusCode);
+        // }
+
+        // ////GET BY EVENTNAME -TESTCASES
+
+        // [Fact]
+        // public async Task GetByEventName_Returns_200_Success()
+        // {
+        //     // Act
+        //     var result = await appoinment.GetAppointmentByEventName("1 on 1") as OkObjectResult;
+
+        //     // Assert
+        //     Assert.Equal(200, result?.StatusCode);
+        // }
+
+        // [Fact]
+        // public async void GetByEventName_WhenCalled_Return_Appoinment()
+        // {
+        //     // Act
+        //     var okResult = await appoinment.GetAppointmentByEventName("Scrumcall") as OkObjectResult;
+
+        //     var items = Assert.IsType<List<Appointment>>(okResult.Value);
+        //     // Assert
+        //     Assert.True(items.Count == 2);
+        // }
+
+        // [Fact]
+        // public async Task GetByEventName_Result_404_NotFound()
+        // {
+        //     var eventName = "DailyScrum";
+        //     var resultStatus = await appoinment.GetAppointmentByEventName(eventName) as NotFoundResult;
+
+        //     //Assert
+        //     Assert.Equal(404, resultStatus?.StatusCode);
+        //     Assert.IsType<NotFoundResult>(resultStatus);
+        // }
+
+        // [Fact]
+        // public async Task GetByEventName_Null_Result_BadRequest()
+        // {
+        //     // Act
+        //     var badResponse = await appoinment.GetAppointmentByEventName(string.Empty);
+        //     var test = Assert.IsType<BadRequestObjectResult>(badResponse);
+        //     // Assert
+        //     Assert.Equal(400, test?.StatusCode);
+        // }
 
 
 
@@ -141,14 +225,17 @@ namespace DisprzTraining.Tests.UnitTesting
         public async Task Post_Result_Success_CheckBy_Name()
         {
             var url = "https://api/appoinments/fghrfdbrgn";
+            string format = "MMM ddd d HH:mm yyyy";
+            DateTime timestart1 = new DateTime(2022, 12, 31, 8, 10, 20, DateTimeKind.Utc);
+            DateTime timeend1 = new DateTime(2022, 12, 31, 9, 00, 00, DateTimeKind.Utc);
             var meetingDetails = new Appointment()
             {
                 ID = Guid.NewGuid(),
                 Name = "Devasangeetha",
                 meetingUrl = url,
                 startTime = new DateTime(2022, 12, 31, 8, 10, 20, DateTimeKind.Utc),
-                endTime = new DateTime(2022, 12, 31, 9, 00, 00, DateTimeKind.Utc),
-                eventName = "Scrum call"
+                endTime = timeend1,
+                title = "Scrum call"
             };
             var postResult = await appoinment.PostAppointmentDetails(meetingDetails) as CreatedResult;
             Assert.True(postResult.Value.Equals(true));
@@ -170,14 +257,17 @@ namespace DisprzTraining.Tests.UnitTesting
 
             //ARRANGE
             var url = "https://api/appoinments/fghrfdbrgn";
+            string format = "MMM ddd d HH:mm yyyy";
+            DateTime timestart1 = new DateTime(2022, 12, 31, 6, 30, 20, DateTimeKind.Utc);
+            DateTime timeend1 = new DateTime(2022, 12, 31, 7, 00, 00, DateTimeKind.Utc);
             var meetingDetails = new Appointment()
             {
                 ID = Guid.NewGuid(),
                 Name = "Devasangeetha",
                 meetingUrl = url,
-                startTime = new DateTime(2022, 12, 31, 6, 30, 20, DateTimeKind.Utc),
-                endTime = new DateTime(2022, 12, 31, 7, 00, 00, DateTimeKind.Utc),
-                eventName = "Scrum call"
+                startTime = timestart1,
+                endTime = timeend1,
+                title = "Scrum call"
             };
 
             //ACT
@@ -192,14 +282,17 @@ namespace DisprzTraining.Tests.UnitTesting
         {
             //ARRANGE
             var url = "https://api/appoinments/fghrfdbrgn";
+            string format = "MMM ddd d HH:mm yyyy";
+            DateTime timestart1 = new DateTime(2022, 12, 31, 5, 10, 20, DateTimeKind.Utc);
+            DateTime timeend1 = new DateTime(2022, 12, 31, 6, 00, 00, DateTimeKind.Utc);
             var meetingDetails = new Appointment()
             {
                 ID = Guid.NewGuid(),
                 Name = "Devasangeetha",
                 meetingUrl = url,
-                startTime = new DateTime(2022, 12, 31, 5, 10, 20, DateTimeKind.Utc),
-                endTime = new DateTime(2022, 12, 31, 6, 00, 00, DateTimeKind.Utc),
-                eventName = "Scrum call"
+                startTime = timestart1,
+                endTime = timeend1,
+                title = "Scrum call"
             };
 
             //ACT
@@ -217,14 +310,17 @@ namespace DisprzTraining.Tests.UnitTesting
         {
             //ARRANGE
             var url = "https://api/appoinments/fghrfdbrgn";
+            string format = "MMM ddd d HH:mm yyyy";
+            DateTime timestart1 = new DateTime(2022, 12, 31, 5, 10, 20, DateTimeKind.Utc);
+            DateTime timeend1 = new DateTime(2022, 12, 31, 6, 00, 00, DateTimeKind.Utc);
             var meetingDetails = new Appointment()
             {
                 ID = new Guid("d780857c-2df6-4b12-b484-97b75db63215"),
                 Name = "Devasangeetha",
                 meetingUrl = url,
-                startTime = new DateTime(2022, 12, 31, 5, 10, 20, DateTimeKind.Utc),
-                endTime = new DateTime(2022, 12, 31, 6, 00, 00, DateTimeKind.Utc),
-                eventName = "Updates"
+                startTime = timestart1,
+                endTime = timeend1,
+                title = "Updates"
             };
 
             // Act
@@ -251,14 +347,17 @@ namespace DisprzTraining.Tests.UnitTesting
         {
             //ARRANGE
             var url = "https://api/appoinments/fghrfdbrgn";
+            string format = "MMM ddd d HH:mm yyyy";
+            DateTime timestart1 = new DateTime(2022, 12, 12, 1, 15, 15, DateTimeKind.Utc);
+            DateTime timeend1 = new DateTime(2022, 12, 12, 1, 25, 20, DateTimeKind.Utc);
             var meetingDetails = new Appointment()
             {
                 ID = new Guid("d780857c-2df6-4b12-b484-97b75db63215"),
                 Name = "Devasangeetha",
                 meetingUrl = url,
-                startTime = new DateTime(2022, 12, 12, 1, 15, 15, DateTimeKind.Utc),
-                endTime = new DateTime(2022, 12, 12, 1, 25, 20, DateTimeKind.Utc),
-                eventName = "Scrum call"
+                startTime = timestart1,
+                endTime = timeend1,
+                title = "Scrum call"
             };
             //ACT
             var updateResult = await appoinment.UpdateStudentDetails(meetingDetails) as ConflictObjectResult;
@@ -308,7 +407,7 @@ namespace DisprzTraining.Tests.UnitTesting
             var existingGuid = new Guid("766fdce0-7e9c-4c43-b068-02fd99c008d5");
             // Act
             var okResult = await appoinment.DeleteStudentDetails(existingGuid);
-            var noContentResponse = await appoinment.GetAppointmentDetails() as OkObjectResult;
+            var noContentResponse = await appoinment.GetAppointmentDetails(null, null, "") as OkObjectResult;
             // Assert
             var items = Assert.IsType<List<Appointment>>(noContentResponse.Value);
             Assert.Equal(3, items.Count);

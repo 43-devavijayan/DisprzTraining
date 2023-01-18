@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\devasangeetha.m_disp\\Desktop\\Project\\DisprzTraining\\DisprzTraining\\DisprzTraining.csproj": {}
+    "C:\\Users\\devasangeetha.m_disp\\Desktop\\Project\\DisprzTraining\\DisprzTraining\\DisprzTraining.csproj": {}
   },
   "projects": {
-    "c:\\Users\\devasangeetha.m_disp\\Desktop\\Project\\DisprzTraining\\DisprzTraining\\DisprzTraining.csproj": {
+    "C:\\Users\\devasangeetha.m_disp\\Desktop\\Project\\DisprzTraining\\DisprzTraining\\DisprzTraining.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\devasangeetha.m_disp\\Desktop\\Project\\DisprzTraining\\DisprzTraining\\DisprzTraining.csproj",
+        "projectUniqueName": "C:\\Users\\devasangeetha.m_disp\\Desktop\\Project\\DisprzTraining\\DisprzTraining\\DisprzTraining.csproj",
         "projectName": "DisprzTraining",
-        "projectPath": "c:\\Users\\devasangeetha.m_disp\\Desktop\\Project\\DisprzTraining\\DisprzTraining\\DisprzTraining.csproj",
+        "projectPath": "C:\\Users\\devasangeetha.m_disp\\Desktop\\Project\\DisprzTraining\\DisprzTraining\\DisprzTraining.csproj",
         "packagesPath": "C:\\Users\\devasangeetha.m_disp\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\devasangeetha.m_disp\\Desktop\\Project\\DisprzTraining\\DisprzTraining\\obj\\",
+        "outputPath": "C:\\Users\\devasangeetha.m_disp\\Desktop\\Project\\DisprzTraining\\DisprzTraining\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\devasangeetha.m_disp\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -38,6 +38,10 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Cors": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
             "Microsoft.AspNetCore.Mvc.Testing": {
               "target": "Package",
               "version": "[7.0.1, )"

@@ -18,11 +18,10 @@ namespace DisprzTraining.Tests.UnitTesting
 
 
         [Fact]
-        public void GetByID_Businesslayer_NUllException()
+        public void Get_Businesslayer_NUllException()
         {
-            var id = new Guid("4d0097f2-fef5-48a3-81d9-44484e50e9ad");
             // Act + ASSERT
-            var result = Assert.ThrowsAsync<InvalidOperationException>(() => appoinmentBL.GetAppointmentByID(id));
+            var result = Assert.ThrowsAsync<InvalidOperationException>(() => appoinmentBL.GetAppointments(null,null,""));
 
         }
 
@@ -31,7 +30,7 @@ namespace DisprzTraining.Tests.UnitTesting
         {
             var eventName = "DailyScrum";
             // Act + ASSERT
-            var result = Assert.ThrowsAsync<NullReferenceException>(() => appoinmentBL.GetAppointmentByEventName(eventName));
+            var result = Assert.ThrowsAsync<NullReferenceException>(() => appoinmentBL.GetAppointments(null,null,eventName));
 
         }
 
@@ -67,6 +66,9 @@ namespace DisprzTraining.Tests.UnitTesting
         {
             //ARRANGE
             var url = "https://api/appoinments/fghrfdbrgn";
+            string format = "MMM ddd d HH:mm yyyy";
+            // DateTime timestart1 = new DateTime(2022, 12, 12, 1, 15, 15, DateTimeKind.Utc);
+            // DateTime timeend1 = new DateTime(2022, 12, 12, 1, 25, 20, DateTimeKind.Utc);
             var meetingDetails = new Appointment()
             {
                 ID = new Guid("d780857c-2df6-4b12-b484-97b75db63215"),
@@ -74,7 +76,7 @@ namespace DisprzTraining.Tests.UnitTesting
                 meetingUrl = url,
                 startTime = new DateTime(2022, 12, 12, 1, 15, 15, DateTimeKind.Utc),
                 endTime = new DateTime(2022, 12, 12, 1, 25, 20, DateTimeKind.Utc),
-                eventName = "Scrum call"
+                title = "Scrum call"
             };
             //ACT
             bool flagResult = await appoinmentBL.FlagAppoinment(meetingDetails);
