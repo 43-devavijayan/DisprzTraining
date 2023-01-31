@@ -58,8 +58,8 @@ namespace DisprzTraining.Tests.UnitTesting
                 ID = Guid.NewGuid(),
                 Name = "Devasangeetha",
                 meetingUrl = url,
-                startTime = timestart1,
-                endTime = timeend1,
+                start = timestart1,
+                end = timeend1,
                 title = "Integration Testing"
             };
             var postResult = await appoinmentDAL.Postappoinment(meetingDetails);
@@ -79,8 +79,8 @@ namespace DisprzTraining.Tests.UnitTesting
                 ID = new Guid("d780857c-2df6-4b12-b484-97b75db63215"),
                 Name = "Devasangeetha",
                 meetingUrl = url,
-                startTime = timestart1,
-                endTime = timeend1,
+                start = timestart1,
+                end = timeend1,
                 title = "Integration Testing"
             };
             // Act

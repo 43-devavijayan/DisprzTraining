@@ -71,17 +71,16 @@ namespace DisprzTraining.Tests.UnitTesting
             // DateTime timeend1 = new DateTime(2022, 12, 12, 1, 25, 20, DateTimeKind.Utc);
             var meetingDetails = new Appointment()
             {
-                ID = new Guid("d780857c-2df6-4b12-b484-97b75db63215"),
                 Name = "Devasangeetha",
                 meetingUrl = url,
-                startTime = new DateTime(2022, 12, 12, 1, 15, 15, DateTimeKind.Utc),
-                endTime = new DateTime(2022, 12, 12, 1, 25, 20, DateTimeKind.Utc),
+                start = new DateTime(2023, 1, 31, 5, 10, 20, DateTimeKind.Utc),
+                end = new DateTime(2023, 1, 31, 6, 40, 0, DateTimeKind.Utc),
                 title = "Scrum call"
             };
             //ACT
             bool flagResult = await appoinmentBL.FlagAppoinment(meetingDetails);
             //ASSERT
-            Assert.Equal(flagResult, false);
+            Assert.Equal(false , flagResult);
 
         }
     }

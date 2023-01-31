@@ -115,8 +115,8 @@ namespace DisprzTraining.Tests
             {
                 Name = "Kanishka",
                 meetingUrl = "https://api/appoinment/dfnbhgteyudbjn5",
-                startTime = timestart1,
-                endTime = timeend1,
+                start = timestart1,
+                end = timeend1,
                 title = "Integration Testing"
             };
             var jsonString = JsonSerializer.Serialize(meetingDetails);
@@ -143,8 +143,8 @@ namespace DisprzTraining.Tests
                 ID = new Guid("766fdce0-7e9c-4c43-b068-02fd99c008d5"),
                 Name = "Kanishka",
                 meetingUrl = "https://api/appoinment/dfnbhgteyudbjn5",
-                startTime = timestart1,
-                endTime = timeend1,
+                start = timestart1,
+                end = timeend1,
                 title = "Integration Testing"
             };
             var jsonString = JsonSerializer.Serialize(meetingDetails);

@@ -19,7 +19,7 @@ namespace DisprzTraining.Business
             IEnumerable<Appointment> query = resultappoinment;
             if ((!(startTime == null)) && (!(endTime == null) && (!string.IsNullOrEmpty(title))))
             {
-                query = resultappoinment.Where(e => e.startTime == startTime && e.endTime== endTime && e.title.Contains(title));
+                query = resultappoinment.Where(e => e.start == startTime && e.end== endTime && e.title.Contains(title));
             }
             if (((startTime == null)) && ((endTime == null)) && (!string.IsNullOrEmpty(title)))
             {
@@ -27,23 +27,23 @@ namespace DisprzTraining.Business
             }
             if ((!(startTime == null)) && (string.IsNullOrEmpty(title)) && (endTime == null))
             {
-                query = resultappoinment.Where(e => e.startTime == startTime);
+                query = resultappoinment.Where(e => e.start == startTime);
             }
             if ((!(endTime == null)) && ((startTime == null)) && (string.IsNullOrEmpty(title)))
             {
-                query = resultappoinment.Where(e => e.endTime == endTime);
+                query = resultappoinment.Where(e => e.end == endTime);
             }
              if ((!(endTime == null) ) && (!(startTime == null)) && (string.IsNullOrEmpty(title)))
             {
-                query = resultappoinment.Where(e => e.endTime == endTime);
+                query = resultappoinment.Where(e => e.end == endTime);
             }
              if ((!(endTime == null)) && (!(string.IsNullOrEmpty(title))) && (startTime == null))
             {
-                query = resultappoinment.Where(e => e.endTime == endTime);
+                query = resultappoinment.Where(e => e.end == endTime);
             }
             if ((!(startTime == null)) && (!(string.IsNullOrEmpty(title))) && (endTime == null))
             {
-                query = resultappoinment.Where(e => e.startTime == startTime);
+                query = resultappoinment.Where(e => e.start == startTime);
             }
             
             var result = new List<Appointment>(query);
@@ -81,18 +81,18 @@ namespace DisprzTraining.Business
             Boolean flag = true;
             foreach (var details in meetingDetails)
             {
-                System.Console.WriteLine(details.startTime);
+                // System.Console.WriteLine(details.start);
                 if (data.ID != details.ID)
                 {
-                    if ((data.startTime >= details.startTime) && (data.startTime <= details.endTime))
+                    if ((data.start >= details.start) && (data.start <= details.end))
                     {
                         flag = false;
                     }
-                    else if ((data.endTime >= details.startTime) && (data.endTime <= details.endTime))
+                    else if ((data.end >= details.start) && (data.end <= details.end))
                     {
                         flag = false;
                     }
-                    else if ((data.startTime <= details.startTime) && (data.endTime >= details.endTime))
+                    else if ((data.start <= details.start) && (data.end >= details.end))
                     {
                         flag = false;
                     }

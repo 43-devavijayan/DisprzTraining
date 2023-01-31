@@ -83,9 +83,9 @@ namespace DisprzTraining.Tests.UnitTesting
         public async void GetBySearch_WhenCalled_Return_Appoinment()
         {
             //ARRANGE 
-            var startTime = new DateTime(2022, 12, 31, 5, 10, 20, DateTimeKind.Utc);
-            var endTime = new DateTime(2022, 12, 31, 5, 40, 0, DateTimeKind.Utc);
-            var title = "Scrumcall";
+            var startTime = new DateTime(2023, 1, 31, 5, 10, 20, DateTimeKind.Utc);
+            var endTime = new DateTime(2023, 1, 31, 6, 40, 0, DateTimeKind.Utc);
+            var title = "Scrum call";
 
             // Act
             var okResult = await appoinment.GetAppointmentDetails(startTime, endTime, title) as OkObjectResult;
@@ -120,14 +120,13 @@ namespace DisprzTraining.Tests.UnitTesting
         public async void GetBySearch_Title_And_EndTime_WhenCalled_Return_Appoinment()
         {
             //ARRANGE 
-            var endTime = new DateTime(2022, 12, 31, 5, 40, 0, DateTimeKind.Utc);
-            var title = "Scrumcall";
+            var endTime = new DateTime(2023, 1, 31, 6, 40, 0, DateTimeKind.Utc);
+            var title = "Scrum call";
 
             // Act
             var okResult = await appoinment.GetAppointmentDetails(null, endTime, title) as OkObjectResult;
             var items = Assert.IsType<List<Appointment>>(okResult.Value);
             var item = okResult.Value as Appointment;
-            System.Console.WriteLine(item);
 
             // Assert
             Assert.Equal(200, okResult?.StatusCode);
@@ -135,11 +134,11 @@ namespace DisprzTraining.Tests.UnitTesting
         }
 
           [Fact]
-        public async void GetBySearch_StartTime_And_EndTime_TitleAndEndTime_WhenCalled_Return_Appoinment()
+        public async void GetBySearch_StartTime_And_EndTime_WhenCalled_Return_Appoinment()
         {
             //ARRANGE 
-            var startTime = new DateTime(2022, 12, 31, 5, 10, 20, DateTimeKind.Utc);
-            var endTime = new DateTime(2022, 12, 31, 5, 40, 0, DateTimeKind.Utc);
+            var startTime = new DateTime(2023, 1, 31, 5, 10, 20, DateTimeKind.Utc);
+            var endTime = new DateTime(2023, 1, 31, 6, 40, 0, DateTimeKind.Utc);
             // Act
             var okResult = await appoinment.GetAppointmentDetails(null,endTime,"") as OkObjectResult;
             var items = Assert.IsType<List<Appointment>>(okResult.Value);
@@ -233,8 +232,8 @@ namespace DisprzTraining.Tests.UnitTesting
                 ID = Guid.NewGuid(),
                 Name = "Devasangeetha",
                 meetingUrl = url,
-                startTime = new DateTime(2022, 12, 31, 8, 10, 20, DateTimeKind.Utc),
-                endTime = timeend1,
+                start = new DateTime(2022, 12, 31, 8, 10, 20, DateTimeKind.Utc),
+                end = timeend1,
                 title = "Scrum call"
             };
             var postResult = await appoinment.PostAppointmentDetails(meetingDetails) as CreatedResult;
@@ -265,8 +264,8 @@ namespace DisprzTraining.Tests.UnitTesting
                 ID = Guid.NewGuid(),
                 Name = "Devasangeetha",
                 meetingUrl = url,
-                startTime = timestart1,
-                endTime = timeend1,
+                start = timestart1,
+                end = timeend1,
                 title = "Scrum call"
             };
 
@@ -290,8 +289,8 @@ namespace DisprzTraining.Tests.UnitTesting
                 ID = Guid.NewGuid(),
                 Name = "Devasangeetha",
                 meetingUrl = url,
-                startTime = timestart1,
-                endTime = timeend1,
+                start = timestart1,
+                end = timeend1,
                 title = "Scrum call"
             };
 
@@ -318,8 +317,8 @@ namespace DisprzTraining.Tests.UnitTesting
                 ID = new Guid("d780857c-2df6-4b12-b484-97b75db63215"),
                 Name = "Devasangeetha",
                 meetingUrl = url,
-                startTime = timestart1,
-                endTime = timeend1,
+                start = timestart1,
+                end = timeend1,
                 title = "Updates"
             };
 
@@ -346,18 +345,18 @@ namespace DisprzTraining.Tests.UnitTesting
         public async Task Update_Result_Value_Check_Conflict_409()
         {
             //ARRANGE
-            var url = "https://api/appoinments/fghrfdbrgn";
+            var url = "https://api/appoinments/ZycXTA0UOmWDfCG";
             string format = "MMM ddd d HH:mm yyyy";
-            DateTime timestart1 = new DateTime(2022, 12, 12, 1, 15, 15, DateTimeKind.Utc);
-            DateTime timeend1 = new DateTime(2022, 12, 12, 1, 25, 20, DateTimeKind.Utc);
+            DateTime timestart1 = new DateTime(2023, 1, 31, 5, 30, 20, DateTimeKind.Utc);
+            DateTime timeend1 = new DateTime(2023, 1, 31, 6, 40, 0, DateTimeKind.Utc);
             var meetingDetails = new Appointment()
             {
-                ID = new Guid("d780857c-2df6-4b12-b484-97b75db63215"),
-                Name = "Devasangeetha",
+                ID = new Guid("766fdce0-7e9c-4c43-b068-02fd99c008d5"),
+                Name = "Kanishka",
                 meetingUrl = url,
-                startTime = timestart1,
-                endTime = timeend1,
-                title = "Scrum call"
+                start = timestart1,
+                end = timeend1,
+                title = "Scrumcall"
             };
             //ACT
             var updateResult = await appoinment.UpdateStudentDetails(meetingDetails) as ConflictObjectResult;

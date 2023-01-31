@@ -88,7 +88,7 @@ namespace DisprzTraining.Controllers
             }
             catch (Exception)
             {
-                return BadRequest("Request cannot be null ");
+                return BadRequest("Request cannot be null");
             }
         }
 

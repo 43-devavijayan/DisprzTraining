@@ -46,10 +46,10 @@ namespace DisprzTraining.DataAccess
         // static DateTime timeend4 = new DateTime(2022, 12, 12, 1, 10, 10, DateTimeKind.Utc);
         public static List<Appointment> appointmentDetails = new(){
 
-            new Appointment{ ID = new Guid("d780857c-2df6-4b12-b484-97b75db63215"), Name = "Devasangeetha", meetingUrl = GetURL(), startTime = new DateTime(2023, 1, 31, 5, 10, 20, DateTimeKind.Utc) , endTime = new DateTime(2023, 1, 31, 6, 40, 0, DateTimeKind.Utc), title ="Scrumcall"},
-            new Appointment{ ID = new Guid("766fdce0-7e9c-4c43-b068-02fd99c008d5"), Name = "Kanishka", meetingUrl = GetURL(), startTime =new DateTime(2023, 1, 31, 1, 30, 00, DateTimeKind.Utc) , endTime =new DateTime(2023, 1, 31, 2, 30, 0, DateTimeKind.Utc) , title ="Dev Test"},
-            new Appointment{ ID = new Guid("ed46a787-9522-47cb-897a-96714b4c877e"), Name = "VijayShree", meetingUrl = GetURL(), startTime = new DateTime(2023, 1, 12, 1, 15, 15, DateTimeKind.Utc) , endTime =new DateTime(2023, 1, 12, 1, 55, 20, DateTimeKind.Utc) , title ="Town Hall"},
-            new Appointment{ ID = new Guid("3b5ec916-eb18-41a3-9a21-4524f0fcf521"), Name = "Pavatharini", meetingUrl = GetURL(), startTime = new DateTime(2023, 1, 5, 1, 0, 0, DateTimeKind.Utc), endTime =new DateTime(2023, 1, 5, 1, 50, 0, DateTimeKind.Utc), title ="1 on 1"},
+            new Appointment{ ID = new Guid("d780857c-2df6-4b12-b484-97b75db63215"), Name = "Devasangeetha", meetingUrl = GetURL(), start = new DateTime(2023, 1, 31, 5, 10, 20, DateTimeKind.Utc) , end = new DateTime(2023, 1, 31, 6, 40, 0, DateTimeKind.Utc), title ="Scrum call"},
+            new Appointment{ ID = new Guid("766fdce0-7e9c-4c43-b068-02fd99c008d5"), Name = "Kanishka", meetingUrl = GetURL(), start =new DateTime(2023, 1, 31, 1, 30, 00, DateTimeKind.Utc) , end =new DateTime(2023, 1, 31, 2, 30, 0, DateTimeKind.Utc) , title ="Dev Test"},
+            new Appointment{ ID = new Guid("ed46a787-9522-47cb-897a-96714b4c877e"), Name = "VijayShree", meetingUrl = GetURL(), start = new DateTime(2023, 1, 12, 1, 15, 15, DateTimeKind.Utc) , end =new DateTime(2023, 1, 12, 1, 55, 20, DateTimeKind.Utc) , title ="Town Hall"},
+            new Appointment{ ID = new Guid("3b5ec916-eb18-41a3-9a21-4524f0fcf521"), Name = "Pavatharini", meetingUrl = GetURL(), start = new DateTime(2023, 1, 5, 1, 0, 0, DateTimeKind.Utc), end =new DateTime(2023, 1, 5, 1, 50, 0, DateTimeKind.Utc), title ="1 on 1"},
         };
 
         public async Task<List<Appointment>> GetAllAppointments()
@@ -95,8 +95,8 @@ namespace DisprzTraining.DataAccess
                 meetingDetail.ID = data.ID;
                 meetingDetail.Name = data.Name;
                 meetingDetail.meetingUrl = data.meetingUrl;
-                meetingDetail.startTime = data.startTime;
-                meetingDetail.endTime = data.endTime;
+                meetingDetail.start = data.start;
+                meetingDetail.end = data.end;
                 meetingDetail.title = data.title;
             }
             return await Task.FromResult(meetingDetail);
